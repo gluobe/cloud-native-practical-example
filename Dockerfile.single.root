@@ -1,0 +1,9 @@
+FROM maven:3.6.1-jdk-11-slim
+LABEL maintainer="steven.trescinski@gluo.be"
+COPY . /source
+WORKDIR /source
+RUN mvn -B package -DskipTests
+RUN mkdir /app && cp /source/target/shopping-list-*.jar /app/application.jar
+WORKDIR /app
+EXPOSE 8080
+ENTRYPOINT [ "java", "-jar", "/app/application.jar", "--spring.profiles.active=hsqldb" ]

@@ -1,0 +1,11 @@
+FROM maven:3.6.1-jdk-11-slim
+LABEL maintainer="steven.trescinski@gluo.be"
+RUN adduser --disabled-password --gecos "" --home /app --shell /bin/bash app-user
+COPY . /source
+WORKDIR /source
+RUN mvn -B package -DskipTests
+RUN cp /source/target/shopping-list-*.jar /app/application.jar
+WORKDIR /app
+EXPOSE 8080
+USER app-user
+ENTRYPOINT [ "java", "-jar", "/app/application.jar", "--spring.profiles.active=hsqldb" ]
