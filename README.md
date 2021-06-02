@@ -1,5 +1,7 @@
 # Single stage Docker build (root)
 
+> NOTE: This is a demo repo, do not use any of this in production!
+
 ```
 docker build --progress=plain -f Dockerfile.single.root -t exercise:single-root .
 docker container run -d -p 8080:8080 exercise:single-root
@@ -26,5 +28,5 @@ docker container run -d -p 8082:8080 exercise:multi
 # Size differences
 
 ```
-docker images ls
+docker image ls
 ```
